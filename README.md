@@ -1,4 +1,4 @@
-Assignment:
+# Assignment:
 The task is to design and implement a backend service to control the
 temperature in the building(s). The API should be REST based and the state of
 the building should be persisted to any form of persistent storage. There is no
