@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_building_db
+    restart: always
+    environment:
+      POSTGRES_DB: database
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      #- ./postgres_data:/var/lib/postgresql/data ##INFO: ENABLE FOR PERSISTANCE WHEN STOPPING COMPLETELY
+      - ./init.sql:/docker-entrypoint-initdb.d/init1.sql
+    networks:
+      - building-network
+
+  api:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    container_name: building_temperature_api
+    restart: always
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/database
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: password
+      SPRING_JPA_SHOW_SQL: 'true'
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - building-network
+
+networks:
+  building-network:
+    driver: bridge

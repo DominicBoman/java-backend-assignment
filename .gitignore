@@ -1,0 +1,18 @@
+*.class
+*.war
+*.ear
+*.db
+*.log
+!target/
+!api/target/*.jar
+!api/target/*.war
+!api/target/*.ear
+.vscode/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+.env
+*.env
+!init.sql  # Include init.sql
